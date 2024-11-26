@@ -2,6 +2,9 @@ import com.cgvsu.model.Model;
 import com.cgvsu.model.Polygon;
 import com.cgvsu.math.Vector3f;
 import com.cgvsu.objreader.ObjReader;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.File;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -97,5 +100,24 @@ public class ObjWriterTest {
                 System.out.println("Ошибка! Некорректный путь.");
             }
         }
+    }
+    @Test
+    public void testFileCreation() throws IOException {
+
+        Model model = new Model();
+        model.vertices.add(new Vector3f(0, 0, 0));
+
+        String testFilePath = "test.obj";
+
+        ObjWriter.write(model, testFilePath);
+
+        boolean fileCreated = new File(testFilePath).exists();
+
+        assertTrue(fileCreated, "Файл не был создан!");
+
+        if (fileCreated) {
+            System.out.println("Файл успешно создан по пути: " + testFilePath);
+        }
+        new File(testFilePath).delete();
     }
 }

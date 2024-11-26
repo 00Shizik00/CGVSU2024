@@ -13,25 +13,21 @@ public class ObjWriter {
     public static void write(Model model, String filename) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
 
-            // Запись вершин
             for (Vector3f vertex : model.vertices) {
                 writer.write("v " + vertex.x + " " + vertex.y + " " + vertex.z);
                 writer.newLine();
             }
 
-            // Запись текстурных координат
             for (Vector2f texture : model.textureVertices) {
                 writer.write("vt " + texture.x + " " + texture.y);
                 writer.newLine();
             }
 
-            // Запись нормалей
             for (Vector3f normal : model.normals) {
                 writer.write("vn " + normal.x + " " + normal.y + " " + normal.z);
                 writer.newLine();
             }
 
-            // Запись полигонов
             for (Polygon polygon : model.polygons) {
                 writer.write("f");
                 for (int i = 0; i < polygon.getVertexIndices().size(); i++) {
